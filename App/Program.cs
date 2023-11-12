@@ -31,6 +31,9 @@ namespace App
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
+            // enable serilog request logging
+            app.UseSerilogRequestLogging();
+
             app.UseRouting();
 
             app.UseAuthorization();
@@ -49,8 +52,8 @@ namespace App
             builder.WebHost.UseSerilog();
 
             Log.Logger = new LoggerConfiguration()
-                // .ReadFrom.Configuration(configuration)
-                .WriteTo.Console()
+                .ReadFrom.Configuration(builder.Configuration)
+                // .WriteTo.Console()
                 .CreateLogger();
         }
     }

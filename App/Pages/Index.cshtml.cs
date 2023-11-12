@@ -15,19 +15,25 @@ namespace App.Pages
 
         public void OnGet()
         {
-            Log.Information("you requested Index page.");
+            _logger.LogInformation("you requested Index page.");
 
             try
             {
-                throw new Exception("this is our demo exception.");
+                for (int i = 0; i < 10; i++)
+                {
+                    if(i == 5)
+                    {
+                        throw new Exception("this is our demo exception.");
+                    }
+                    else
+                    {
+                        _logger.LogInformation("value of i is {i}", i);
+                    }
+                }
             }
             catch (Exception ex)
             {
-                Log.Fatal(ex, "we caught an exception in Index page.");
-            }
-            finally
-            {
-                Log.CloseAndFlush();
+                _logger.LogError(ex, "we caught an exception in Index page.");
             }
         }
     }
